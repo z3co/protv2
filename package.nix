@@ -24,8 +24,8 @@
 				src = pkgs.fetchFromGitHub {
 					owner = "z3co";
 					repo = "protv2";
-					tag = "v1.1.1";
-					hash = "";
+					tag = "v${version}";
+					hash = "sha256-dELBbBPBCEXR9iBDcsmp1rYBC/508txKbKsNGsGcLwc=";
 				};
 				vendorHash = "sha256-1xQSQTUZUzykz8YXVnIp5bImU9cJCODiA3cWeb852w0=A";
 			};
