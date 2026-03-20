@@ -2,7 +2,7 @@
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
-VERSION="1.0.1"
+VERSION="1.1.0"
 
 case $ARCH in
 	x86_64) ARCH="amd64" ;;
