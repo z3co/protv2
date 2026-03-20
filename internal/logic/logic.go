@@ -109,3 +109,11 @@ func (s *Instance) UpdateStatus(ctx context.Context, id int64) error {
 	}
 	return nil
 }
+
+func (s *Instance) DeleteTodo(ctx context.Context, id int64) error {
+	err := s.Store.DeleteTodo(ctx, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
