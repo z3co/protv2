@@ -15,7 +15,7 @@
 				devShells.default = pkgs.mkShell {
 					name = "go";
 					packages = with pkgs; [
-						go just zsh sqlc cobra-cli zip
+						go just zsh sqlc cobra-cli zip gopls gofumpt
 					];
 					shellHook = ''
 						export SHELL=${pkgs.zsh}/bin/zsh

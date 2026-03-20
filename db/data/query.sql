@@ -12,9 +12,13 @@ INSERT INTO todos (
 	?, ?
 ) RETURNING *;
 
--- name: GetTodoByListId :many
+-- name: GetTodosByListId :many
 SELECT * FROM todos
 WHERE list_id = ?;
+
+-- name: GetTodoStatusById :one
+SELECT done FROM todos
+WHERE id = ?;
 
 -- name: GetListIdByFolderBranch :one
 SELECT id FROM lists 

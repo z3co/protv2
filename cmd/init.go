@@ -12,15 +12,9 @@ import (
 var git bool
 
 // createCmd represents the create command
-var createCmd = &cobra.Command{
-	Use:   "create",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+var initCmd = &cobra.Command{
+	Use:   "init",
+	Short: "Creates a new list for this branch or folder",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		err := Instance.CreateList(cmd.Context(), git)
 		if err != nil {
@@ -37,14 +31,14 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	listCmd.AddCommand(createCmd)
+	rootCmd.AddCommand(initCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// createCmd.PersistentFlags().String("foo", "", "A help for foo")
-	createCmd.Flags().BoolVarP(&git, "no-git", "g", true, "Use to disable linking with git branches")
+	listCmd.Flags().BoolVarP(&git, "no-git", "g", true, "Use to disable linking with git branches")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:

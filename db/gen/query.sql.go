@@ -103,13 +103,25 @@ func (q *Queries) GetListIdByFolderBranch(ctx context.Context, arg GetListIdByFo
 	return id, err
 }
 
-const getTodoByListId = `-- name: GetTodoByListId :many
+const getTodoStatusById = `-- name: GetTodoStatusById :one
+SELECT done FROM todos
+WHERE id = ?
+`
+
+func (q *Queries) GetTodoStatusById(ctx context.Context, id int64) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getTodoStatusById, id)
+	var done int64
+	err := row.Scan(&done)
+	return done, err
+}
+
+const getTodosByListId = `-- name: GetTodosByListId :many
 SELECT id, list_id, description, done FROM todos
 WHERE list_id = ?
 `
 
-func (q *Queries) GetTodoByListId(ctx context.Context, listID int64) ([]Todo, error) {
-	rows, err := q.db.QueryContext(ctx, getTodoByListId, listID)
+func (q *Queries) GetTodosByListId(ctx context.Context, listID int64) ([]Todo, error) {
+	rows, err := q.db.QueryContext(ctx, getTodosByListId, listID)
 	if err != nil {
 		return nil, err
 	}

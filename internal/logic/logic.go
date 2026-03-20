@@ -18,7 +18,7 @@ func getFolderAndBranch() (db.CreateListParams, error) {
 	folder, err := os.Getwd()
 	out, errExec := exec.Command("git", "branch", "--show-current").Output()
 	if errExec != nil {
-		return db.CreateListParams{Folder: folder, Branch: "main"}, nil 
+		return db.CreateListParams{Folder: folder, Branch: "main"}, nil
 	}
 	if err != nil {
 		return db.CreateListParams{}, fmt.Errorf("could not get working dir: %s", err)
@@ -69,7 +69,7 @@ func (s *Instance) CreateTodo(ctx context.Context, description string) error {
 	}
 	_, err = s.Store.CreateTodo(ctx, db.CreateTodoParams{
 		Description: description,
-		ListID: id,
+		ListID:      id,
 	})
 	if err != nil {
 		return err
@@ -86,6 +86,26 @@ func (s *Instance) GetTodos(ctx context.Context) ([]db.Todo, error) {
 	if err != nil {
 		return []db.Todo{}, fmt.Errorf("cannot find list for folder and branch: %s", err)
 	}
-	todos, err := s.Store.GetTodoByListId(ctx, id)
+	todos, err := s.Store.GetTodosByListId(ctx, id)
 	return todos, err
+}
+
+func (s *Instance) UpdateStatus(ctx context.Context, id int64) error {
+	status, err := s.Store.GetTodoStatusById(ctx, id)
+	done := status == 1
+	if err != nil {
+		return fmt.Errorf("could not fine todo with id %v", id)
+	}
+	if done {
+		err := s.Store.UpdateTodoStatus(ctx, db.UpdateTodoStatusParams{ID: id, Done: 0})
+		if err != nil {
+			return fmt.Errorf("could change todo status", err)
+		}
+		return nil
+	}
+	err = s.Store.UpdateTodoStatus(ctx, db.UpdateTodoStatusParams{ID: id, Done: 1})
+	if err != nil {
+		return fmt.Errorf("could change todo status", err)
+	}
+	return nil
 }
