@@ -13,9 +13,10 @@ esac
 TMP_DIR=$(mktemp -d)
 cd $TMP_DIR
 echo "Downloading tarball"
-TARBALL="prot-${VERSION}-${OS}-${ARCH}"
-URL="https://github.com/z3co/prot/releases/download/v${VERSION}/${TARBALL}"
-CHECKSUM="https://github.com/z3co/prot/releases/download/v${VERSION}/checksums.txt"
+TARBALL="prot-${VERSION}-${OS}-${ARCH}.tar.gz"
+URL="https://github.com/z3co/protv2/releases/download/v${VERSION}/${TARBALL}"
+CHECKSUM="https://github.com/z3co/protv2/releases/download/v${VERSION}/checksums.txt"
+echo "$URL"
 curl -LO "$URL"
 curl -LO "$CHECKSUM"
 
