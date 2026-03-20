@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS lists (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	folder TEXT NOT NULL,
 	branch TEXT NOT NULL,
-	UNIQUE (folder, branch)
+	CONSTRAINT UC_FolderBranch UNIQUE (folder, branch)
 );
 
 CREATE TABLE IF NOT EXISTS todos (

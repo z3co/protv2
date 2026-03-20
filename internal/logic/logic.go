@@ -30,7 +30,7 @@ func getFolderAndBranch() (db.CreateListParams, error) {
 	}, nil
 }
 
-func (s *Instance) CreateList(ctx context.Context, git bool) error {
+func (s *Instance) CreateList(ctx context.Context) error {
 	folder, err := os.Getwd()
 	if err != nil {
 		return fmt.Errorf("could not get working dir: %s", err)
